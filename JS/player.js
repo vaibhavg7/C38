@@ -1,10 +1,14 @@
 class Player {
-    constructor(){}
+    constructor(){
+        this.name = null;
+        this.index = null;
+        this.distance = 0;
+    }
 
     //To read playerCOunt form the database
     getCount(){
         var pcref=database.ref("playerCount");
-        pcref.on("value",function(data){  //creating the function & calling it
+        pcref.on("value",(data)=>{  //creating the function & calling it
             playerCount=data.val(); 
         })
     }
@@ -17,12 +21,39 @@ class Player {
     }
 
     //To write the name in the database
-    update(name){
+    update(){
         //playerplayerCount player2
-        var playerIndex = "player" + playerCount;
+        var playerIndex = "players/player" + this.index;
         database.ref(playerIndex).set({
-            name:name
+            name:this.name,
+            distance: this.distance
         });
     }
+
+    //for allPlayers to keep the info of the players
+    static getPlayerInfo(){
+        var piref=database.ref("players");
+        piref.on("value",(data)=>{
+            allPlayers=data.val();
+        })
+    }
 }
+
+/*
+gameState: 0
+playerCount: 0
+players:
+    player1:
+        name:
+        distance:
+    player2:
+        name:
+        distance
+    .
+    .
+
+
+static functions
+-
+*/
 

@@ -1,34 +1,41 @@
 class Form {
-    constructor(){}
+    constructor(){
+        this.input=createInput("name");
+        this.button=createButton("play");
+        this.greeting=createElement("h3");
+    }
 
 
+    hide(){
+        this.greeting.hide();
+        this.input.hide();
+        this.button.hide();
+    }
+    
     display(){
         var title = createElement("h2");
         title.html("Car Racing Game");
-        title.position(130, 0);
+        title.position(displayWidth/2-50, 0);
 
-       var input=createInput("name");
-       input.position(130,160);
+       this.input.position(displayWidth/2-40,displayHeight/2-70);
 
-       var button=createButton("play");
-       button.position(250,200);
+       this.button.position(displayWidth/2+30,displayHeight/2);
 
-       var greeting=createElement("h3");
+       this.button.mousePressed(()=>{
+        //Hide the this.input & this.button
+         this.input.hide();
+         this.button.hide();
 
-       button.mousePressed(function(){
-        //Hide the input & button
-         input.hide();
-         button.hide();
-
-         var name=input.value();
+         player.name=this.input.value();
         //Increasing the playerCount
          playerCount=playerCount+1;
+         player.index=playerCount;
         //Updating the PC & name in the database
-        player.update(name);
+        player.update();
         player.updateCount(playerCount);
         //Displaying the greeting
-         greeting.html("hello " + name);
-         greeting.position(130,160);
+         this.greeting.html("hello " + player.name);
+         this.greeting.position(displayWidth/2-70,displayHeight/4);
          
     }
     );
